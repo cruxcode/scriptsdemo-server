@@ -134,7 +134,6 @@ export const search = (): Router => {
 			queryid
 		);
 		const files = fs.readdirSync(output_path).filter((f) => {
-			console.log(f);
 			return f.indexOf(filename) >= 0;
 		});
 		if (files.length > 0) {
