@@ -17,6 +17,6 @@ app.use("/search", search());
 app.use("/doc", doc());
 app.use("/", web());
 
-app.listen(port, "127.0.0.1", () => {
+app.listen(port, "0.0.0.0", () => {
 	console.log("server listening on port", port);
 });
