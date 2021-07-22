@@ -4,11 +4,12 @@ import { hideBin } from "yargs/helpers";
 import { search } from "./search";
 import { doc } from "./doc";
 import { web } from "./web";
+import cors from "cors";
 
 const app = express();
 const argv = yargs(hideBin(process.argv)).argv as any;
 const port = argv.port || 8080;
-
+app.use(cors({ origin: "*" }));
 app.use((req, res, next) => {
 	console.log("req arrived");
 	next();
