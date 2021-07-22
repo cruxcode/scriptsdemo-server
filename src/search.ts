@@ -58,7 +58,9 @@ export const search = (): Router => {
 					);
 					// 4 - call summarizer
 					const docker = spawn("docker", [
-						`exec summ_${lang}_${source} summarize_queries_demo ${clir_output_filename} ${procs}`,
+						"exec",
+						`summ_${lang}_${source}`,
+						`summarize_queries_demo ${clir_output_filename} ${procs}`,
 					]);
 					docker.stdout.on("data", (data) => {
 						console.log(`stdout: ${data}`);
