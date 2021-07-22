@@ -135,7 +135,7 @@ export const search = (): Router => {
 		);
 		const files = fs.readdirSync(output_path).filter((f) => {
 			console.log(f);
-			f.indexOf(filename) >= 0;
+			return f.indexOf(filename) >= 0;
 		});
 		if (files.length > 0) {
 			res.send({
