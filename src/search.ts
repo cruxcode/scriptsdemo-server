@@ -141,7 +141,11 @@ export const search = (): Router => {
 			res.send({
 				success: true,
 				file_ready: true,
-				content: fs.readFileSync(path.resolve(output_path, files[0])),
+				content: JSON.parse(
+					fs
+						.readFileSync(path.resolve(output_path, files[0]))
+						.toString()
+				),
 			});
 		} else {
 			res.send({ success: true, files_ready: false });
