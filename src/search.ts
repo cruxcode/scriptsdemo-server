@@ -132,9 +132,10 @@ export const search = (): Router => {
 			"output",
 			"markup"
 		);
-		const files = fs
-			.readdirSync(output_path)
-			.filter((f) => f.indexOf(filename) >= 0);
+		const files = fs.readdirSync(output_path).filter((f) => {
+			console.log(filename);
+			f.indexOf(filename) >= 0;
+		});
 		if (files.length > 0) {
 			res.send({
 				success: true,
