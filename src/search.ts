@@ -50,7 +50,9 @@ export const search = (): Router => {
 					const clir_output_path = path.resolve(
 						CLIR_OUTPUT_BASE,
 						lang,
-						source
+						source,
+						"output",
+						"clir_output"
 					);
 					fs.writeFileSync(
 						path.resolve(clir_output_path, clir_output_filename),
