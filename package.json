@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "uuidv4": "^6.2.11",
     "yargs": "^17.0.1"
   }
 }
