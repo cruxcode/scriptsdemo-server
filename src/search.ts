@@ -112,12 +112,12 @@ export const search = (): Router => {
 	});
 
 	router.get("/summary", async (req, res) => {
-		const clir_output_filename = req.query.queryid as string;
+		const queryid = req.query.queryid as string;
 		const filename = req.query.filename as string;
 		const lang = req.query.lang as string;
 		const source = req.query.source as string;
 		// 1 - guards
-		if (!clir_output_filename || !filename || !lang || !source) {
+		if (!queryid || !filename || !lang || !source) {
 			res.status(400);
 			res.send({
 				success: false,
@@ -130,10 +130,11 @@ export const search = (): Router => {
 			lang,
 			source,
 			"output",
-			"markup"
+			"markup",
+			queryid
 		);
 		const files = fs.readdirSync(output_path).filter((f) => {
-			console.log(filename);
+			console.log(f);
 			f.indexOf(filename) >= 0;
 		});
 		if (files.length > 0) {
