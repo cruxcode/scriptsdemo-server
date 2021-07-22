@@ -61,7 +61,8 @@ export const search = (): Router => {
 						"exec",
 						`summ_${lang}_${source}`,
 						`summarize_queries_demo`,
-						`${clir_output_filename} ${procs}`,
+						`${clir_output_filename}`,
+						`${procs}`,
 					]);
 					docker.stdout.on("data", (data) => {
 						console.log(`stdout: ${data}`);
