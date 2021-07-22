@@ -9,6 +9,7 @@ import { spawn } from "child_process";
 
 const argv = yargs(hideBin(process.argv)).argv as any;
 const CLIR_OUTPUT_BASE = argv.clir || "/storage/proj/ss6146/cruxdemoserver";
+const PIPELINE_BASE = argv.pipeline || "/storage/proj/ss6146/cruxdemoserver";
 const procs = argv.procs || 2;
 
 export const search = (): Router => {
@@ -84,7 +85,11 @@ export const search = (): Router => {
 					// 5 - wait for atleast one summary
 
 					// 6 - send res
-					res.send({ success: true, result, clir_output_filename });
+					res.send({
+						success: true,
+						result,
+						queryid: clir_output_filename,
+					});
 				});
 				response.on("error", (err) => {
 					console.log(err);
@@ -104,6 +109,41 @@ export const search = (): Router => {
 		});
 
 		request.end();
+	});
+
+	router.get("/summary", async (req, res) => {
+		const clir_output_filename = req.query.queryid as string;
+		const filename = req.query.filename as string;
+		const lang = req.query.lang as string;
+		const source = req.query.source as string;
+		// 1 - guards
+		if (!clir_output_filename || !filename || !lang || !source) {
+			res.status(400);
+			res.send({
+				success: false,
+				msg: "queryid, lang, source and filename are required",
+			});
+			return;
+		}
+		const output_path = path.resolve(
+			PIPELINE_BASE,
+			lang,
+			source,
+			"output",
+			"markup"
+		);
+		const files = fs
+			.readdirSync(output_path)
+			.filter((f) => f.indexOf(filename) >= 0);
+		if (files.length > 0) {
+			res.send({
+				success: true,
+				file_ready: true,
+				content: fs.readFileSync(files[0]),
+			});
+		} else {
+			res.send({ success: true, files_ready: false });
+		}
 	});
 	return router;
 };
