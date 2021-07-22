@@ -21,7 +21,9 @@ export const search = (): Router => {
 				host: "localhost",
 				port: 5000,
 				method: "GET",
-				path: encodeURI(`?q=${query}&source=${source}&size=${size}`),
+				path: encodeURI(
+					`/search?q=${query}&source=${source}&size=${size}`
+				),
 			},
 			(response) => {
 				let chunks: Buffer[] = [];
