@@ -133,20 +133,24 @@ export const search = (): Router => {
 			"markup",
 			queryid
 		);
-		const files = fs.readdirSync(output_path).filter((f) => {
-			return f.indexOf(filename) >= 0;
-		});
-		if (files.length > 0) {
-			res.send({
-				success: true,
-				file_ready: true,
-				content: JSON.parse(
-					fs
-						.readFileSync(path.resolve(output_path, files[0]))
-						.toString()
-				),
+		try {
+			const files = fs.readdirSync(output_path).filter((f) => {
+				return f.indexOf(filename) >= 0;
 			});
-		} else {
+			if (files.length > 0) {
+				res.send({
+					success: true,
+					file_ready: true,
+					content: JSON.parse(
+						fs
+							.readFileSync(path.resolve(output_path, files[0]))
+							.toString()
+					),
+				});
+			} else {
+				res.send({ success: true, files_ready: false });
+			}
+		} catch (err) {
 			res.send({ success: true, files_ready: false });
 		}
 	});
