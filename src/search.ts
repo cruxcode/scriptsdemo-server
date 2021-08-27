@@ -30,10 +30,11 @@ export const search = (): Router => {
 		}
 
 		// 2 - call clir
+		const port = lang === "fa" ? 6000 : 5000;
 		const request = http.request(
 			{
 				host: "localhost",
-				port: 5000,
+				port: port,
 				method: "GET",
 				path: encodeURI(
 					`/search?q=${query}&source=${source}&size=${size}`
@@ -59,6 +60,7 @@ export const search = (): Router => {
 						path.resolve(clir_output_path, clir_output_filename),
 						result
 					);
+					console.log("clir result", result);
 					// 4 - call summarizer
 					const docker = spawn("docker", [
 						"exec",
