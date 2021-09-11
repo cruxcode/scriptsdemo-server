@@ -15,7 +15,7 @@ const procs = argv.procs || 2;
 export const search = (): Router => {
 	const router = Router();
 	router.post("/", express.json(), (req, res) => {
-		const query = req.body.query;
+		const query = encodeURIComponent(req.body.query);
 		const source = req.body.source;
 		const size = req.body.size;
 		const lang = req.body.lang;
