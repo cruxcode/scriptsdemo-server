@@ -36,9 +36,7 @@ export const search = (): Router => {
 				host: "localhost",
 				port: port,
 				method: "GET",
-				path: encodeURI(
-					`/search?q=${query}&source=${source}&size=${size}`
-				),
+				path: `/search?q=${query}&source=${source}&size=${size}`,
 			},
 			(response) => {
 				let chunks: Buffer[] = [];
